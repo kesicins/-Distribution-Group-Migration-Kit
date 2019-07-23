@@ -1,0 +1,78 @@
+Change Log - v4
+Ken Sicinski - ken.sicinski@microsoft.com
+Date: January 9, 2018
+
+Changes:
+
+1) Script 1:
+
+Replaced:
+
+@{name="Managedby";expression={($_ |select -expandproperty managedby).name -join ";"}},`
+
+With: 
+
+@{name="Managedby";expression={($_.ManagedBy) -join ";"}},`
+
+2) Script 2:
+
+Replaced:
+
+$ManagedBy=$_.ManagedBy -split ';'
+
+With:
+
+$ManagedBy=@()
+$Managers=$_.ManagedBy -split ';'
+ForEach ($Manager in $Managers)
+{
+    $pos = $Manager.LastIndexOf("/")
+    $Manager = (Get-Recipient ($Manager.Substring($pos+1))).PrimarySmtpAddress
+    $ManagedBy+=$Manager
+}
+
+3) Added legal disclaimer in production scripts
+4) Added count loop to script 4 (DG removal) for in-line feedback
+5) Added count loop in script 5
+6) Added count loop in script 6
+
+Change Log - v5
+SandyM@microsoft.com
+Date: March 13, 2019
+
+Changes:
+Preserve and set the hidden from Address List attribute.
+
+1) Script 1-ExportData_v5.ps1
+
+Added Line 43:
+
+HiddenFromAddressListsEnabled,`
+
+2) Script 5-RenameO365Groups_v5.ps1
+
+Added Line 18:
+
+$Hidden=[System.Convert]::ToBoolean($_.HiddenFromAddressListsEnabled)
+
+Added Line 25:
+
+-HiddenFromAddressListsEnabled $Hidden
+
+3) Script 6-BOrenameandunhideGroups_v2.ps1
+
+Added Line 18:
+
+$Hidden=[System.Convert]::ToBoolean($_.HiddenFromAddressListsEnabled)
+
+Added Line 24:
+
+-HiddenFromAddressListsEnabled $Hidden
+
+Change Log - v6
+ken.sicinski@microsoft.com
+Date: June 11, 2019
+
+-Added logging to scripts 2, 3, 4, 5, 6, 7, 8, 9
+-Formatting changes
+
