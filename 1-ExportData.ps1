@@ -69,7 +69,7 @@ Function ExportGroupAddresses
     {
         Write-Host -ForegroundColor Yellow "Exporting Distribution Groups Email Addresses to" $exportGroupsProxy
 
-        #Export 2) ON-PREM export distribution groups’ smtp aliases
+        #Export 2) ON-PREM export distribution groupsâ€™ smtp aliases
         $groups | Select-Object RecipientTypeDetails,PrimarySmtpAddress -ExpandProperty emailaddresses | select RecipientTypeDetails,PrimarySmtpAddress, @{name="TYPE";expression={$_}} | Export-Csv $exportGroupsProxy -NoTypeInformation
     }
     
@@ -88,7 +88,7 @@ Function ExportGroupMembers
     {
         Write-Host -foregroundcolor Yellow "Exporting Distribution Groups members to" $exportGroupMembers
 
-        #Export 2) ON-PREM export distribution groups’ smtp aliases
+        #Export 2) ON-PREM export distribution groupsâ€™ smtp aliases
         $groups | % {
             #Add count loop
             $guid=$_.Guid;
