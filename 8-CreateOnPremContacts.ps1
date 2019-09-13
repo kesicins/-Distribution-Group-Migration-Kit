@@ -23,6 +23,7 @@ foreach($group in $groups){
         if($routingAddress)
         {
             Write-Host "Working on: " $group.Name
+            #Added logic to add "onmicrosoft" address instead of Primary SMTP
             New-MailContact -Name $group.Name -ExternalEmailAddress $routingAddress -OrganizationalUnit $OU
         }
     }
