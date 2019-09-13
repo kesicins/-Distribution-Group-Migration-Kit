@@ -9,12 +9,22 @@
 
 $logfile = "8_errors_$(Get-Date -Format yyyyMMddTHHmmssffff).txt"
 $OU = Read-Host -Prompt 'OU for on prem group contacts'
+$proxyAddresses = Import-Csv .\distributiongroups-SMTPproxy.csv
+$groups = Import-Csv .\distributiongroups.csv | ? {$_.PrimarySmtpAddress -like "*dc*"}
 
-Import-Csv distributiongroups.csv | % {
+foreach($group in $groups){
     try
     {
-        Write-Host "Working on: " $_.Name
-        New-MailContact -Name $_.Name -ExternalEmailAddress $_.primarySMTPAddress -OrganizationalUnit $OU
+        $routingAddress = $null
+        $contactAddresses = $null
+        $contactAddresses = $group.EmailAddresses -split ";"
+        $routingAddress = $contactAddresses | ? {($_ -like "*mail.onmicrosoft*")}
+        
+        if($routingAddress)
+        {
+            Write-Host "Working on: " $group.Name
+            New-MailContact -Name $group.Name -ExternalEmailAddress $routingAddress -OrganizationalUnit $OU
+        }
     }
 
     catch
