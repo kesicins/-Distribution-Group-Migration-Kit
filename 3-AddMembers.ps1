@@ -28,7 +28,7 @@ Import-Csv distributiongroups-and-members.csv | % {
             $memberaddress = $MemberSMTP
         }
 
-        Write-Host "Adding adddress" $memberaddress "to group" $GroupSMTP
+        Write-Host "Adding User" $memberaddress "to group" $GroupSMTP
  
         if ($RecipientTypeDetails -eq "MailUniversalSecurityGroup")
         {

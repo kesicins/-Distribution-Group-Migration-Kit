@@ -30,3 +30,4 @@ $OLDDG | % {
 
 }
 
+Write-host "*** If no errors have occurred, an Azure AD Connect Sync is need before moving to the next step. ***" -ForegroundColor Yellow

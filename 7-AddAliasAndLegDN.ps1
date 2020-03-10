@@ -15,7 +15,8 @@ $aliasCount = $ALIASES.count
 $ALIASES | % {
     try
     {
-        Write-Host "Remaining aliases:"$aliasCount
+        $AliasName = $_.PrimarySmtpAddress
+        # Write-Host "Adding Alias for $AliasName, there are this many Distro Groups remaining --> $aliasCount"
         Set-DistributionGroup -Identity $_.PrimarySmtpAddress -EmailAddresses @{Add=$_.TYPE}
         $aliasCount--
     }
@@ -25,7 +26,8 @@ $ALIASES | % {
         #error on screen
         Write-Host -ForegroundColor Red "Error: " $_.Exception.Message
         #error to log
-        Write-Output "Error: " $_.Exception.Message | Out-File $logFile -Append
+         Write-Output "Error: " $_.Exception.Message | Out-File $logFile -Append
+         Write-Host "*** Errors have occurred, please check the log file in the current directory:"$logFile -ForegroundColor Yellow
     }
 }
  
@@ -35,7 +37,9 @@ $x500count = $x500.count
 $x500 | % {
     try
     {
-        Write-Host "Remaining x500's:"$x500count
+        $DGName = $_.DisplayName 
+        #Write-Output "Remaining x500's:$x500count
+        write-output "Adding X500 for $DGName, there are this many Distro Groups remaining --> $x500count"
         $smtp = $_.PrimarySmtpAddress
         $LegacyExchangeDN = "x500:"+$_.LegacyExchangeDN
         Set-DistributionGroup $smtp -EmailAddresses @{Add=$LegacyExchangeDN}
@@ -48,6 +52,7 @@ $x500 | % {
         Write-Host -ForegroundColor Red "Error: " $_.Exception.Message
         #error to log
         Write-Output "Error: " $_.Exception.Message | Out-File $logFile -Append
+        Write-Host "*** Errors have occurred, please check the log file in the current directory:"$logFile -ForegroundColor Yellow
     }
 }
 

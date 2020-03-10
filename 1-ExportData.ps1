@@ -40,6 +40,7 @@ Function ExportGroups
         ModerationEnabled,`
         SendModerationNotifications,`
         LegacyExchangeDN,`
+        OrganizationalUnit,`  # Added this line
 		HiddenFromAddressListsEnabled,`
         @{name="Managedby";expression={($_.ManagedBy) -join ";"}},`
         @{Name="DN";Expression={$_.DistinguishedName -join ";"}},`

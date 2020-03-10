@@ -15,7 +15,7 @@ $RemoveNEWGroupSMTP | % {
     try
     {
         Write-Host "Remaining:"$count
-        Set-DistributionGroup -Identity $_.PrimarySmtpAddress -EmailAddresses @{remove=$_.NEWPrimarySmtpAddress}
+        Set-DistributionGroup -Identity $_.PrimarySmtpAddress -EmailAddresses @{remove=$_.NEWPrimarySmtpAddress} 
         $count--
     }
 
@@ -25,6 +25,9 @@ $RemoveNEWGroupSMTP | % {
         Write-Host -ForegroundColor Red "Error: " $_.Exception.Message
         #error to log
         Write-Output "Error: " $_.Exception.Message | Out-File $logFile -Append
+        Write-Host "*** Errors have occurred, please check the log file in the current directory:"$logFile -ForegroundColor Yellow
     }
 }
+
+
 

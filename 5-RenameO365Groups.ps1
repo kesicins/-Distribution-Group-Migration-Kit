@@ -22,7 +22,7 @@ $RENAMEDG | % {
 	    $Hidden = [System.Convert]::ToBoolean($_.HiddenFromAddressListsEnabled)
         Write-Output "Remaining:"$count
         Write-Output ""
-        Write-Output "working on Group: $Name"
+        Write-Output "Working on Group: $Name"
         Write-Output ""
 
         Set-DistributionGroup -Identity $NEWName -Name $Name -Alias $Alias -DisplayName $DisplayName -PrimarySmtpAddress $PrimarySmtpAddress -HiddenFromAddressListsEnabled $Hidden

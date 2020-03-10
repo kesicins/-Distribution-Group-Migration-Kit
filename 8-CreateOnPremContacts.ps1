@@ -8,9 +8,9 @@
 # OF LIABILITY FOR CONSEQUENTIAL OR INCIDENTAL DAMAGES, THE ABOVE LIMITATION MAY NOT APPLY TO YOU.
 
 $logfile = "8_errors_$(Get-Date -Format yyyyMMddTHHmmssffff).txt"
-$OU = Read-Host -Prompt 'OU for on prem group contacts'
-$proxyAddresses = Import-Csv .\distributiongroups-SMTPproxy.csv
-$groups = Import-Csv .\distributiongroups.csv | ? {$_.PrimarySmtpAddress -like "*dc*"}
+$OU = Read-Host -Prompt 'NON-Syncing OU for on prem group contacts'
+$proxyAddresses = Import-Csv distributiongroups-SMTPproxy.csv
+$groups = Import-Csv distributiongroups.csv | ? {$_.PrimarySmtpAddress -like "*"}
 
 foreach($group in $groups){
     try

@@ -35,7 +35,7 @@ Import-Csv distributiongroups.csv | % {
     
         Write-Output ""
         Write-Output "working on Group: $Name"
-        Write-Output "$RequireSenderAuthenticationEnabled"
+        Write-Output "RequireSenderAuthenticationEnabled: $RequireSenderAuthenticationEnabled"  # Added this line
  
         if ($RecipientTypeDetails -eq "MailUniversalSecurityGroup")
         {
